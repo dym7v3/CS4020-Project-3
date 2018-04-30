@@ -3,7 +3,8 @@
     <string name="start">Start</string>
     <string name="hangman">HangMan!</string>
     <string name="attempts">Attempts:</string>
-    <string name="select_a_letter">Select A Letter</string>
+    <string name="select_a_letter">Lets Play Hangman!</string>
     <string name="_10">10</string>
     <string name="letters_used">Letters Used:</string>
+    <string name="enter_letter">Letter or Phrase:</string>
 </resources>
