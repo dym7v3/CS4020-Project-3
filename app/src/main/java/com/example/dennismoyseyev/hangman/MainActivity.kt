@@ -12,29 +12,31 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
-//The data model.
-var model: gameModel = gameModel()
 
 
 class MainActivity : Activity() {
-    lateinit var field: EditText
+    lateinit var input_text: EditText
+    var model: gameModel = gameModel(this) //The data model.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
         my_pharse.text = String(model.char_arry)
-        field = findViewById(R.id.input_text) as EditText
+        input_text = findViewById(R.id.input_text) as EditText
     }
 
 
-
+    //This will be the event handler that will look at the text and process it.
     override fun onResume() {
         super.onResume()
-        field.setOnEditorActionListener( { textView, action, event ->
+        input_text.setOnEditorActionListener( { textView, action, event ->
             var handled = false
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                Toast.makeText(getApplicationContext(), "Your toast message.", Toast.LENGTH_SHORT).show()
+            if (action == EditorInfo.IME_ACTION_DONE)
+            {
+                model.check_input(input_text.text.toString())
+                my_pharse.text = String(model.char_arry)
+                amount_attempts_left.text = model.attempts.toString()
             }
             handled
         })
