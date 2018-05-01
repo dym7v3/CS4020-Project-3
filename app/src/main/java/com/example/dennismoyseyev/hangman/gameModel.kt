@@ -5,7 +5,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.dennismoyseyev.hangman.R.id.input_text
 import java.nio.file.Files.find
-import java.util.Random
+import java.util.*
 
 //The data model.
 class gameModel(context: Context){
@@ -13,11 +13,10 @@ class gameModel(context: Context){
     val phrase_num: Int
     var phrase: String
     var char_arry: CharArray
-    val orginal_phrase_arry: CharArray
-    var input: String = ""
-    var Mycontext: Context = context
+    private val orginal_phrase_arry: CharArray
+    var letters_used: String = ""
+    private var Mycontext: Context = context
     var attempts: Int = 10
-
 
     //The initializing block of code.
     init {
@@ -73,14 +72,16 @@ class gameModel(context: Context){
     internal fun check_input(inputString: String)
     {
         var found_letter = false
-        val convert_string_to_char_array: CharArray = inputString.toCharArray()
+        var valid_string = false
+        var add_to_used_letters = true
+        val convert_string_to_char_array: CharArray = inputString.toLowerCase().replace(" ", "  ").toCharArray()
 
         when {
-            inputString.length<0 ->
+            inputString.isEmpty() ->
             {
                 Toast.makeText(this.Mycontext, "You need to enter a letter or a phrase", Toast.LENGTH_SHORT).show()
             }
-            inputString.length==1 ->
+            inputString.length == 1 ->
             {
                 for (letter in orginal_phrase_arry.indices)
                 {
@@ -90,14 +91,56 @@ class gameModel(context: Context){
                         found_letter = true
                     }
                 }
+                for (letter in letters_used.indices)
+                {
+                    if (letters_used.get(letter).equals(convert_string_to_char_array.get(0)))
+                    {
+                        Toast.makeText(this.Mycontext, "You already used this letter.", Toast.LENGTH_SHORT).show()
+                        add_to_used_letters=false
+                    }
+                }
+                //Checks if the letter should be added to the amount of letters used.
+                if(add_to_used_letters)
+                {
+                    letters_used += " " + convert_string_to_char_array.get(0)
+                }
             }
-            else -> Toast.makeText(this.Mycontext, "Need to check the whole string against the other string.", Toast.LENGTH_SHORT).show()
+            else ->
+            {
+                //Matches every letter to each other to check if the user guessed the phrase.
+                if (orginal_phrase_arry.size == (convert_string_to_char_array.size))
+                {
+                    for (letter in orginal_phrase_arry.indices) {
+                        if (orginal_phrase_arry.get(letter).equals(convert_string_to_char_array.get(letter))) {
+                            valid_string = true
+                            found_letter = true
+                        } else {
+                            valid_string = false
+                            found_letter = false
+                        }
+                    }
+                }
+                else {
+                    valid_string = false
+                    found_letter = false
+                }
+            }
         }
 
+        //This means that it looked for the letter or phrase and it was not found in the character sequence
         if(!found_letter)
         {
             attempts-=1
         }
+
+        //If the program logical get here then that mean that the user won the game.
+        if(valid_string)
+        {
+            letters_used=""
+            char_arry=phrase.toCharArray()
+            Toast.makeText(this.Mycontext, "You won!", Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 

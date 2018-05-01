@@ -37,6 +37,8 @@ class MainActivity : Activity() {
                 model.check_input(input_text.text.toString())
                 my_pharse.text = String(model.char_arry)
                 amount_attempts_left.text = model.attempts.toString()
+                display_letters.text = model.letters_used
+                input_text.text.clear()
             }
             handled
         })
