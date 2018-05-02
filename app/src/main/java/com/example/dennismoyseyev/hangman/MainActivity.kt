@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -39,9 +40,19 @@ class MainActivity : Activity() {
                 amount_attempts_left.text = model.attempts.toString()
                 display_letters.text = model.letters_used
                 input_text.text.clear()
+
+                if(model.attempts<10)
+                {
+                    showHangMan()
+                }
             }
             handled
         })
+    }
+
+    fun showHangMan()
+    {
+        Ground.visibility = View.VISIBLE
     }
 
 }

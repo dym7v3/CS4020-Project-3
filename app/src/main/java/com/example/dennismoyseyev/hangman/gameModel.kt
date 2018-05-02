@@ -1,10 +1,7 @@
 package com.example.dennismoyseyev.hangman
 import android.content.Context
-import android.content.res.Resources
 import android.widget.EditText
 import android.widget.Toast
-import com.example.dennismoyseyev.hangman.R.id.input_text
-import java.nio.file.Files.find
 import java.util.*
 
 //The data model.
@@ -143,7 +140,6 @@ class gameModel(context: Context){
 
 
     }
-
 
 
 }
