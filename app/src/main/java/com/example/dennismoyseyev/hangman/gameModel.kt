@@ -1,23 +1,21 @@
 package com.example.dennismoyseyev.hangman
 import android.content.Context
-import android.widget.EditText
 import android.widget.Toast
 import java.util.*
 
 //The data model.
 class gameModel(context: Context){
-    val random : Random
-    val phrase_num: Int
-    var phrase: String
+    val random : Random = Random()
+    private val phrase_num: Int
+    private var phrase: String
     var char_arry: CharArray
     private val orginal_phrase_arry: CharArray
     var letters_used: String = ""
     private var Mycontext: Context = context
-    var attempts: Int = 10
+    var attempts: Int = 1
 
     //The initializing block of code.
     init {
-        random = Random()
         phrase_num = rand(1, 10)
         phrase = which_phrase(phrase_num)
         orginal_phrase_arry = phrase.toCharArray()
@@ -94,6 +92,7 @@ class gameModel(context: Context){
                     {
                         Toast.makeText(this.Mycontext, "You already used this letter.", Toast.LENGTH_SHORT).show()
                         add_to_used_letters=false
+                        found_letter=true
                     }
                 }
                 //Checks if the letter should be added to the amount of letters used.
@@ -138,8 +137,8 @@ class gameModel(context: Context){
             Toast.makeText(this.Mycontext, "You won!", Toast.LENGTH_SHORT).show()
         }
 
-
     }
+
 
 
 }

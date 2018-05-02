@@ -7,4 +7,7 @@
     <string name="_10">10</string>
     <string name="letters_used">Letters Used:</string>
     <string name="enter_letter">Letter or Phrase:</string>
+    <string name="enter_letter_or_phrase">Enter Letter Or Phrase</string>
+    <string name="quit">Quit</string>
+    <string name="play_again">Play Again</string>
 </resources>
