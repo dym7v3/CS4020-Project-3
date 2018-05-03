@@ -12,7 +12,7 @@ class gameModel(context: Context){
     private val orginal_phrase_arry: CharArray
     var letters_used: String = ""
     private var Mycontext: Context = context
-    var attempts: Int = 1
+    var attempts: Int = 10
 
     //The initializing block of code.
     init {
